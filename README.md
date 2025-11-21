@@ -67,35 +67,98 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 This repository powers the "Laravel AI Blog" application. It is based on a standard Laravel 12 skeleton with additional models, routes, and views for blog posts, categories, tags, and search.
 
 ### Quick Start (Local Development)
+
+**Linux/Mac:**
 ```bash
-git clone https://github.com/demayneName/laravel-ai-blog.git
-cd laravel-ai-blog
+git clone https://github.com/Demayne/Laravel-Ai-Blog.git
+cd Laravel-Ai-Blog
 cp .env.example .env
 composer install
 php artisan key:generate
-# (SQLite) touch database/database.sqlite if using sqlite
+
+# Create SQLite database file
+touch database/database.sqlite
+
+# Run migrations and seed sample data
 php artisan migrate --seed
+
+# Install and build frontend assets
 npm install
 npm run dev
+
+# Start development server
+php artisan serve
+```
+
+**Windows (CMD/PowerShell):**
+```powershell
+git clone https://github.com/Demayne/Laravel-Ai-Blog.git
+cd Laravel-Ai-Blog
+copy .env.example .env
+composer install
+php artisan key:generate
+
+# Create SQLite database file (CMD)
+type nul > database\database.sqlite
+
+# Or in PowerShell:
+# New-Item -Path database -Name database.sqlite -ItemType File
+
+# Ensure .env has SQLite configured (should be default in .env.example):
+# DB_CONNECTION=sqlite
+# DB_DATABASE=database/database.sqlite
+
+# Run migrations and seed sample data
+php artisan migrate --seed
+
+# Install and build frontend assets
+npm install
+npm run dev
+
+# Start development server (visit http://localhost:8000)
 php artisan serve
 ```
 
 ### Production Deployment (Typical Linux Server)
 ```bash
-git clone https://github.com/demayneName/laravel-ai-blog.git
-cd laravel-ai-blog
+git clone https://github.com/Demayne/Laravel-Ai-Blog.git
+cd Laravel-Ai-Blog
 cp .env.example .env
-php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+
+# Create SQLite database
+touch database/database.sqlite
+
+# Install dependencies (production mode)
 composer install --no-dev --optimize-autoloader
+
+# Generate application key
 php artisan key:generate --ansi
+
+# Update .env for production:
+# - Set APP_ENV=production
+# - Set APP_DEBUG=false
+# - Set APP_URL=https://yourdomain.com
+# - Ensure DB_CONNECTION=sqlite and DB_DATABASE=database/database.sqlite
+
+# Run migrations
 php artisan migrate --force
+
+# Link storage for public file access
 php artisan storage:link
+
+# Build frontend assets
 npm ci
 npm run build
+
+# Cache configuration for performance
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan optimize
+
+# Set proper permissions
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
 ```
 
 ### Recommended Environment Variables (Production)
