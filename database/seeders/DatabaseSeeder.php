@@ -8,6 +8,8 @@ use App\Models\Tag;
 use App\Models\BlogPost;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,10 +18,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Basic test user
-        User::factory()->create([
+        // Basic test user (direct create to avoid Faker dependency in production)
+        User::query()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
         ]);
 
         // Seed Categories
