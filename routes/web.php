@@ -22,16 +22,7 @@ use App\Http\Controllers\BlogPostController; // REQUIRED: For new blog post mana
  * - Eloquent: https://laravel.com/docs/eloquent
  */
 
-// Helper function to get common sidebar data
-// Caches data for performance for 1 hour (3600 seconds)
-function getSidebarData() {
-    return Cache::remember('sidebar_data', 3600, function () {
-        return [
-            'allCategories' => Category::all(),
-            'allTags' => Tag::all(),
-        ];
-    });
-}
+
 
 // 🔐 Legal Routes (Terms of Service / Privacy Policy)
 Route::get('/legal/{subsection}', function ($subsection) {
