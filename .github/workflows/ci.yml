@@ -66,12 +66,10 @@ jobs:
       - name: Run Tests
         run: php artisan test
 
-      - name: Laravel Optimize (optional)
+      - name: Laravel Config Cache (optional)
         run: |
           php artisan config:cache
-          php artisan route:cache
           php artisan view:cache
-          php artisan optimize
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4

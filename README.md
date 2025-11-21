@@ -152,9 +152,10 @@ npm run build
 
 # Cache configuration for performance
 php artisan config:cache
-php artisan route:cache
 php artisan view:cache
-php artisan optimize
+
+# NOTE: Route caching is NOT compatible with route closures (used in this app)
+# If you convert routes to controllers, you can enable it with: php artisan route:cache
 
 # Set proper permissions
 chmod -R 775 storage bootstrap/cache
