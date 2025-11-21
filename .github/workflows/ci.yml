@@ -51,9 +51,6 @@ jobs:
       - name: Run Migrations
         run: php artisan migrate --force --seed
 
-      - name: Run Tests
-        run: php artisan test
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -65,6 +62,9 @@ jobs:
 
       - name: Build Assets
         run: npm run build
+
+      - name: Run Tests
+        run: php artisan test
 
       - name: Laravel Optimize (optional)
         run: |
